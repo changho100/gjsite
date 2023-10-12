@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+ <style>
+    .intro {position:absolute; z-index:-1;}
+    .left {background:#17345a; width:200px; height:800px; float:left;}
+    .left_menu {list-style-type:none; padding-top:20px; padding-left:0px; font-size:11pt; font-family:맑은 고딕;
+                font-weight:bold; font-color:#fff;}
+    .left_menu li {margin:0px; line-height:40px; font-color:#fff; padding-left:20px; }
+    .left_menu li a {color:#fff;}
+    .left_menu li a:hover {color:#d22730;}
+    .left_menu li ul {list-style-type:none; margin-left:-60px; font-size:10pt;}
+
+    .left_menu li ul li {line-height:35px;  padding-left:35px;}
+
+    div.tab {
+        overflow: hidden;
+        background-color: #bcc6d3;
+        padding-left:70px;
+        width:870px;
+        font-family:맑은 고딕;
+        font-weight:bold;
+    }
+
+    div.tab button {
+        background-color: #bcc6d3;
+        float: left;
+        border:none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        font-size:10pt;
+    }
+
+    div.tab button:hover {
+        background-color: #ddd;
+    }
+
+    div.tab button.active {
+        background-color: #ccc;
+    }
+
+    .tabcontent {
+        display: none;
+        border: none;
+    }
+
+    .tabcontent_active {
+        border: none;
+    }
+    .sub_item {float:left; text-align:left; margin-top:0; padding-left:70px; padding-top:15px; list-style-type:none; font-family:맑은 고딕; background:#f2f4f6; width:870px; height:30px;}
+    .sub_item li {float:left; background:none; text-align:center; border-right:2px solid #ccc; padding: 0px 10px; background:#f2f4f6; cursor: pointer; }
+    .sub_tab1 {padding-bottom:3px;  font-size:9pt;}
+    .sub_tab2 {padding-bottom:3px;  font-size:9pt;}
+    .sub_tab3 {padding-bottom:3px;  font-size:9pt;}
+    .sub_tab4 {padding-bottom:3px;  font-size:9pt;}
+    .intro_contents {width:947px; height:800px; text-align:center; overflow:auto; float:right; }
+ </style>
+<script type="text/javascript">
+    function imagetab(evt, imageid, imagenum) {
+
+    tablinks = document.getElementsByClassName(imageid);
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.display = "none";
+    }
+    tablinks[imagenum].style.display = "block";
+    var sub_tab_class = "sub_tab" + imageid;
+    sub_tab = document.getElementsByClassName(sub_tab_class);
+    for (i = 0; i < sub_tab.length; i++) {
+        sub_tab[i].style.borderBottom = "none";
+    }
+    sub_tab[imagenum].style.borderBottom  = "2px solid #17345a";
+}
+    function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    tabcontent_active = document.getElementsByClassName("tabcontent_active");
+    for (i = 0; i < tabcontent_active.length; i++) {
+        tabcontent_active[i].style.display = "none";
+        tabcontent_active[i].className = tabcontent_active[i].className.replace("_active","");
+    }
+
+     tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+     document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+
+    if (cityName=='first') {
+        imagetab(null, '1', '0');
+    }else if (cityName=='second') {
+        imagetab(null, '2', '0');
+    }else if (cityName=='third') {
+        imagetab(null, '3', '0');
+    }else if (cityName=='fourth') {
+        imagetab(null, '4', '0');
+    }
+}
+    function myFunction() {
+    var elmnt = document.getElementById("divid1");
+    var x = elmnt.scrollLeft;
+    var y = elmnt.scrollTop;
+    alert(y);
+}
+    function moveScroll(evt, top, divid) {
+    document.getElementById(divid).scrollTop = Number(top);
+    alert(divid+" = " +top+" = " +elmnt);
+}
+
+</script>
+<body>
+{% load static %}
+{% include "mpage/top.html" %}
+<div class="intro">
+    <div class="left">
+        <div style="color:white; font-family:맑은 고딕; background:#294860;
+                    font-size:13pt; width:200px; height:50px; text-align:center; display:table-cell;
+                    vertical-align:middle; border-bottom:4px solid #091d3e;">
+            행사 소개
+        </div>
+         <ul class="left_menu" style="margin:0">
+             <li><a href="/intro/" >행사 안내<br/></a></li>
+             <li ><a href="/intro/items">전시 항목</a></li>
+             <li>
+                 <ul>
+                     <li {% if item_id == '1' %}
+                        style="background:#091d3e;"
+                     {% endif %}"><a href="/intro/1/1"
+                                     {% if item_id == '1' %}
+                                       style="color:#fff;"
+                                    {% endif %}>- Biz IoT</a></li>
+                     <li {% if item_id == '2' %}
+                        style="background:#091d3e;"
+                     {% endif %}"><a href="/intro/2/1"
+                                     {% if item_id == '2' %}
+                                       style="color:#fff;"
+                                    {% endif %}>- 차량/이동체</a></li>
+                     <li {% if item_id == '3' %}
+                        style="background:#091d3e;"
+                     {% endif %}"><a href="/intro/3/1"
+                                     {% if item_id == '3' %}
+                                       style="color:#fff;"
+                                    {% endif %}>- Big Data</a></li>
+                     <li {% if item_id == '4' %}
+                        style="background:#091d3e;"
+                     {% endif %}"><a href="/intro/4/1"
+                                     {% if item_id == '4' %}
+                                       style="color:#fff;"
+                                    {% endif %}>- 농업IoT</a></li>
+                     <li {% if item_id == '5' %}
+                        style="background:#091d3e;"
+                     {% endif %}"><a href="/intro/5/1"
+                                     {% if item_id == '5' %}
+                                       style="color:#fff;"
+                                    {% endif %}>- 스마트에너지</a></li>
+                     <li {% if item_id == '6' %}
+                        style="background:#091d3e;"
+                     {% endif %}"><a href="/intro/6/1"
+                                     {% if item_id == '6' %}
+                                       style="color:#fff;"
+                                    {% endif %}>- 데이터 시각화</a></li>
+                     <li {% if item_id == '7' %}
+                        style="background:#091d3e;"
+                     {% endif %}"><a href="/intro/7/1"
+                                     {% if item_id == '7' %}
+                                       style="color:#fff;"
+                                    {% endif %}>- Biz 솔루션</a></li>
+                     <li {% if item_id == '8' %}
+                        style="background:#091d3e;"
+                     {% endif %}"><a href="/intro/8/1"
+                                     {% if item_id == '8' %}
+                                       style="color:#fff;"
+                                    {% endif %}>- 통합 관제</a></li>
+                     <li {% if item_id == '9' %}
+                        style="background:#091d3e;"
+                     {% endif %}"><a href="/intro/9/1"
+                                     {% if item_id == '9' %}
+                                       style="color:#fff;"
+                                    {% endif %}>- 차세대 NW</a></li>
+                     <li {% if item_id == '10' %}
+                        style="background:#091d3e;"
+                     {% endif %}"><a href="/intro/10/1"
+                                     {% if item_id == '10' %}
+                                       style="color:#fff;"
+                                    {% endif %}>- AI</a></li>
+                 </ul>
+             </li>
+             <li><a href="/intro/map">전시장 MAP</a></li>
+             <li><a href="/reservation/seminar">세미나</a></li>
+             <li><a href="/reservation">컨설팅/상담</a></li>
+             <li><a href="/votes/b_vote">솔루션 투표</a></li>
+             <li><a href="/question/">QnA</a></li>
+             <!--<li>
+                <ul>
+                    <li><a href="/question/">- 행사 진행</a></li>
+                    <li><a href="/question/solutionq">- 솔루션</a></li>
+                </ul>
+             </li>-->
+         </ul>
+    </div>
+    <div class="intro_contents">
+        <div id="blank" style="height:15px; width:947px;"></div>
+
+        <div class="contents">
+            {% block contents %}
+            <img src="/static/img/ready.png" width="700px" height="700px"/>
+            {% endblock %}
+        </div>
+
+    </div>
+    <div>
+        <img src="{% static 'img/main_foot.png' %}"/>
+    </div>
+</div>
+
+</body>
+</html>
